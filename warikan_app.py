@@ -16,6 +16,11 @@ client = gspread.authorize(creds)
 
 SHEET_NAME = "旅行割り勘データ"  # あなたのシート名
 worksheet = client.open(SHEET_NAME).sheet1
+# ヘッダーを保証
+header = ["amount", "category", "payer", "participants", "exemptions", "desc"]
+if not worksheet.row_values(1):  # 1行目が空なら
+    worksheet.append_row(header)
+
 
 # ==============================
 # Streamlit UI
